@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "name": "demo-proj",
+  "version": "1.0.0",
+  "description": "vinay",
+  "main": "app.js",
+  "scripts": {
+    "start":"node app.js",
+    "dev":"nodemon app",
+    "prod":"SET NODE_ENV=production & nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

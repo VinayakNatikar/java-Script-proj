@@ -12,7 +12,7 @@
   "description": "vinay",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "dev": "nodemon app",
     "prod": "SET NODE_ENV=production & nodemon app.js"
   },

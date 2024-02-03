@@ -8,6 +8,7 @@ dotenv.config({path : './config/config.env'  })
 
 connectDatabase();
 
+
 const jobs=require('./routes/jobs');
 app.use(jobs);
 const PORT = process.env.PORT || 3000 ; 

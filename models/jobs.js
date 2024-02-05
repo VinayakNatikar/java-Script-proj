@@ -1,95 +1,129 @@
-const mongoose=require('mongoose');
-const validator=require('validator');
- 
+const mongoose = require('mongoose');
+const validator = require('validator');
+const slugify=require('slugify');
+
+
 const jobSchema = new mongoose.Schema({
-    title:{
-        type:String,
-        required:[true,'please enter job title'],
-        trim:true,
-        maxlength:[100,'job title can not exceed 100 characters.'],
-
+    title : {
+        type : String,
+        required : [true, 'Please enter Job title.'],
+        trim : true,
+        maxlength : [100, 'Job title can not exceed 100 characters.']
     },
-    slug:String,
-    description: {
-        type:String,
-        required:[true,'please enter job description'],
-        maxlength:[1000,'job description can not exceed 1000 characters.']
-    }   ,
-    email:{
-        type:String,
-        validate:[validator.isEmail,'please add valid email address.'],     
+    slug : String,
+    description : {
+        type : String,
+        required : [true, 'Please enter Job description.'],
+        maxlength : [1000, 'Job description can not exceed 1000 characters.']
     },
-    adress:{
-        type:String,
-        required:[true,'please add an address.']
+    email : {
+        type : String,
+        validate : [validator.isEmail, 'Please add a valid email address.']
     },
-    company:{
-        type:String,
-        required:[true,'please add company name.']
-
+    address : {
+        type : String,
+        required : [true, 'Please add an address.']
     },
-    industry:{
-        type:[String],
-        required:String,
-        enum:{
-            values:[
+    location :{
+        type : {
+            type : String,
+            enum : ['Point']
+        },
+        coordinates : {
+            type : [Number],
+            index : '2dsphere'
+        },
+        formattedAddress : String,
+        city : String,
+        state : String,
+        zipcode : String,
+        country : String
+    },
+    company : {
+        type : String,
+        required : [true, 'Please add Company name.']
+    },
+    industry : {
+        type : [String],
+        required : [true , 'Please enter industry for this job.'],
+        enum : {
+            values : [
                 'Business',
                 'Information Technology',
                 'Banking',
-                'Education/Traning',
+                'Education/Training',
                 'Telecommunication',
-                'other'
+                'Others'
             ],
-            message:'please select correct option for job type.'
+            message : 'Please select correct options for industry.'
         }
     },
-    minEducation:{
-        type:String,
-        required:true,
-        enum:{
-            values:[
+    jobType : {
+        type : String,
+        required : [true, 'Please enter job type.'],
+        enum : {
+            values : [
+                'Permanent',
+                'Temporary',
+                'Internship'
+            ],
+            message : 'Please select correct options for job type.'
+        }
+    },
+    minEducation : {
+        type : String,
+        required : [true, 'Please enter minimum education for this job.'],
+        enum : {
+            values : [
                 'Bachelors',
                 'Masters',
                 'Phd'
             ],
-            message:'please select correct option for Education'
+            message : 'Please select correct options for Education.'
         }
     },
-    positions:{
-        type:Number,
-        default:1
+    positions : {
+        type : Number,
+        default : 1
     },
-    exprience:{
-        type:String,
-        required:true,
-        enum:{
-            values:[
+    experience : {
+        type : String,
+        required : [true, 'Please enter experience required for this job.'],
+        enum : {
+            values : [
                 'No Experience',
-                '1 year-2 Year',
-                '2 Year-5 Year',
-                '5 year+'
+                '1 Year - 2 Years',
+                '2 Year - 5 Years',
+                '5 Years+'
             ],
-            message:'please select option for experience.'
+            message : 'Please select correct options for Experience.'
         }
     },
-    salary:{
-        type:Number,
-        required:[true,'please enter expected Salary for this job.']
+    salary : {
+        type : Number,
+        required : [true, 'Please enter expected salary for this job.']
     },
-    postingDate:{
-        type:Date,
-        default:Date.now
+    postingDate : {
+        type : Date,
+        default : Date.now
     },
-    lastDate:{
-        type:Date,
-        dafault:new Date().setDate(new Date().getDate()+7)
+    lastDate : {
+        type : Date,
+        default : new Date().setDate(new Date().getDate() + 7)
     },
-    applicantsApplied:{
-        type:[Object],
-        select:false,
-
+    applicantsApplied : {
+        type : [Object],
+        select : false
     }
+    
 });
 
+jobSchema.pre('save',function(next){
+    this.slug=slugify(this.title, {lower:true});
+    next();
+})
 
-module.exports=mongoose.model('job',jobSchema);
+
+
+
+module.exports = mongoose.model('Job', jobSchema);

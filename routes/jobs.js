@@ -3,11 +3,18 @@ const router=express.Router();
 
 const {
     getJobs,
-    newJob
+    getJob,
+    newJob,
+    updateJob,
+    deleteJob
 }=require('../controllers/jobsControllers');
 
 router.route('/jobs').get(getJobs);
+router.route('/job/:id/:slug').get(getJob);
 
 router.route('/job/new').post(newJob);  
+router.route('/jobs/:id')
+.put(updateJob)
+.delete(deleteJob);
 
 module.exports=router;

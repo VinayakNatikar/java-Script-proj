@@ -13,8 +13,8 @@ router.route('/jobs').get(getJobs);
 router.route('/job/:id/:slug').get(getJob);
 
 router.route('/job/new').post(newJob);  
-router.route('/jobs/:id')
-.put(updateJob)
-.delete(deleteJob);
+router.route('/jobs/:id').put(updateJob);
+
+router.route('/jobs/:id').delete(deleteJob);
 
 module.exports=router;

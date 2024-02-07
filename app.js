@@ -47,7 +47,7 @@ const app = express();
 
 const dotenv = require('dotenv');
  const cookieParser = require('cookie-parser');
-// const fileUpload = require('express-fileupload');
+const fileUpload = require('express-fileupload');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -61,7 +61,7 @@ const errorMiddleware = require('./middlewares/errors');
 const ErrorHandler = require('./utils/errorHandler');
 
 // Setting up config.env file variables
-dotenv.config({path : './config/config.env'})
+dotenv.config({path : './config/config.env'});
 
 // Handling Uncaught Exception
 process.on('uncaughtException', err => {
@@ -76,7 +76,7 @@ connectDatabase();
 // Set up body parser
 app.use(bodyParser.urlencoded({ extended : true }));
 
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
 // // Setup security headers
 app.use(helmet());
@@ -88,7 +88,7 @@ app.use(express.json());
  app.use(cookieParser());
 
 // // Handle file uploads
-// app.use(fileUpload());
+app.use(fileUpload());
 
 // Sanitize data
 app.use(mongoSanitize());

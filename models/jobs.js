@@ -99,9 +99,14 @@ const jobSchema = new mongoose.Schema({
     applicantsApplied : {
         type : [Object],
         select : false
+    },
+    user : {
+        type : mongoose.Schema.ObjectId,
+        ref : 'User',
+        required : true
     }
-    
 });
+
 
 jobSchema.pre('save',function(next){
     this.slug=slugify(this.title, {lower:true});

@@ -1,7 +1,7 @@
 const User = require('../models/users');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const ErrorHandler = require('../utils/errorHandler');
-const sendToken = require('../utils/jwtToken');
+      const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 
@@ -16,7 +16,14 @@ exports.registerUser = catchAsyncErrors( async (req, res, next) => {
         role
     });
 
-    sendToken(user, 200, res);
+    // sendToken(user, 200, res);
+    const token =user.getJwtToken();
+    res.status(200).json({
+        success:true,
+        message:'User is registered',
+        token
+
+    })
 });
 
 // Login user  =>  /api/v1/login
@@ -43,6 +50,7 @@ exports.loginUser = catchAsyncErrors( async (req, res, next) => {
     }
 
     sendToken(user, 200, res);
+    
 
 });
 

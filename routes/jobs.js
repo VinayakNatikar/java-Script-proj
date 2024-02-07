@@ -8,13 +8,16 @@ const {
     updateJob,
     deleteJob
 }=require('../controllers/jobsControllers');
+const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
 router.route('/jobs').get(getJobs);
 router.route('/job/:id/:slug').get(getJob);
 
-router.route('/job/new').post(newJob);  
-router.route('/jobs/:id').put(updateJob);
 
-router.route('/jobs/:id').delete(deleteJob);
+router.route('/jobs/:id').put(isAuthenticatedUser,updateJob);
+router.route('/jobs/new').post(isAuthenticatedUser,newJob);
+
+
+router.route('/jobs/:id').delete(isAuthenticatedUser,deleteJob);
 
 module.exports=router;

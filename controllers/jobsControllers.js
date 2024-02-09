@@ -79,7 +79,7 @@ const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFilters = require('../utils/apiFilters');
 const path = require('path');
-// const fs = require('fs');
+ const fs = require('fs');
 
 // Get all Jobs  =>  /api/v1/jobs
 exports.getJobs = catchAsyncErrors(async (req, res, next) => {

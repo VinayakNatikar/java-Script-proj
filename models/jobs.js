@@ -112,8 +112,4 @@ jobSchema.pre('save',function(next){
     this.slug=slugify(this.title, {lower:true});
     next();
 })
-
-
-
-
 module.exports = mongoose.model('Job', jobSchema);

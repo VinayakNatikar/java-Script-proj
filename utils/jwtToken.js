@@ -2,8 +2,9 @@
 
 const sendToken=(user,statusCode,res)=>{
 
-    const token=user.getJWTToken();
-
+    const token=user.getJwtToken();
+        
+    
     const options={
         expires:new Date(Date.now()+ process.env.COOKIE_EXPIRES_TIME *25*60*60*1000),
         httponly:true
@@ -14,5 +15,7 @@ const sendToken=(user,statusCode,res)=>{
         .json({
             success:true,
             token
+
         })
 }
+module.exports = sendToken;

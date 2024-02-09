@@ -20,4 +20,4 @@ router.route('/password/reset/:token').put(resetPassword);
 
 router.route('/logout').get(isAuthenticatedUser, logout);
 
-module.exports = router;
+module.exports = router;    

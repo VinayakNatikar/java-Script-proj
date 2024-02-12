@@ -17,13 +17,7 @@ exports.registerUser = catchAsyncErrors( async (req, res, next) => {
     });
 
      sendToken(user, 200, res);
-    // const token =user.getJwtToken();
-    // res.status(200).json({
-    //     success:true,
-    //     message:'User is registered',
-    //     token
-
-    // })
+  
 });
 
 // Login user  =>  /api/v1/login

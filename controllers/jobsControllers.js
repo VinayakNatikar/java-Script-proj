@@ -1,77 +1,3 @@
-// const Job=require('../models/jobs');   
-// const ErrorHandler=require('../utils/errorHandler'); 
-// const catchAsynsErrors=require('../middlewares/catchAsyncErrors');
-// const APIFilters =require('../utils/apiFilters')
-
-
-// exports.getJobs= catchAsynsErrors( async (req,res,next)=>{
-//     const apiFilters =new APIFilters(Job.find(),)
-//     const jobs= await Job.find();
-//     res.status(200).json({
-//         success: true,      
-//        results:jobs.length,
-//        data:jobs
-//     });
-// });
-
-// exports.newJob= catchAsynsErrors( async (req,res,next)=>{
-//     console.log(req.body);
-//     const jobs= await Job.create(req.body);
-//     res.status(200).json({
-//         success:true,
-//         message:'Job created',
-//         data:Job
-//     });
-// });
-// //get a single job with id and slug
-// exports.getJob=catchAsynsErrors( async(req,res,next)=>{
-//     const job= await Job.find({$and:[{_id:req.params.id},{slug:req.params.slug }]});
-//     if(!job|| job.length ===0){
-//         return res.status(404).json({
-//             success:false,
-//             message:'job not found'
-//         });
-
-//     }
-//     res.status(200).json({
-//         success:true,
-//         data:job
-//     });
-// });
-// exports.updateJob= catchAsynsErrors( async(req,res,next)=>{
-//     let job=await Job.findById(req.params.id);
-//     if(!job){
-//       return next(new ErrorHandler('Job not found',404));
-//         }
-    
-//     job =await Job.findByIdAndUpdate(req.params.id,req.body,{
-//         new :true,
-//         runValidators:true,
-//         useFindAndModify:false
-//     });
-//     res.status(200).json({
-//         success:true,
-//         message:'Job is updated',
-//         data:job
-//     });
-// });
-
-// exports.deleteJob=catchAsynsErrors( async (req,res,next)=>{
-//     let job=await Job.findById(req.params.id);
-
-//     if(!job){
-//         return res.status(404).json({
-//             sucess:false,
-//             message:'Job is not found.'
-//         })
-//     }
-//     job=await Job.findByIdAndDelete(req.params.id);
-//     res.status(200).json({
-//         success:true,
-//         message:'Job id deleted'
-//     });
-// });
-
 const Job = require('../models/jobs');
 
 // const geoCoder = require('../utils/geocoder');
@@ -80,9 +6,11 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFilters = require('../utils/apiFilters');
 const path = require('path');
  const fs = require('fs');
+ 
 
 // Get all Jobs  =>  /api/v1/jobs
 exports.getJobs = catchAsyncErrors(async (req, res, next) => {
+
 
     const apiFilters = new APIFilters(Job.find(), req.query)
         .filter()
